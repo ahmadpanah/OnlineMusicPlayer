@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "309214884120",
+    "firebase_url": "https://onlinemusicplayer-3acfe.firebaseio.com",
+    "project_id": "onlinemusicplayer-3acfe",
+    "storage_bucket": "onlinemusicplayer-3acfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309214884120:android:0042f58fd7ec1880a8ae6d",
+        "android_client_info": {
+          "package_name": "ir.shariaty.onlinemusicplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309214884120-lmpkjo2og1rpu2ek24vk3ogd6keifcat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfk6Myu8EP0K41PKSuhGAZ2eSdihCfuR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309214884120-lmpkjo2og1rpu2ek24vk3ogd6keifcat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
