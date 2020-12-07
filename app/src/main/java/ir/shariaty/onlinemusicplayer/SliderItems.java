@@ -1,13 +1,14 @@
 package ir.shariaty.onlinemusicplayer;
 
 public class SliderItems {
-    public int image;
+    // Change from int to String Because fetch image url
+    public String image;
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public SliderItems (int image) {
+    public SliderItems (String image) {
         this.image = image;
     }
 }

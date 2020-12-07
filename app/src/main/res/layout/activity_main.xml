@@ -14,4 +14,142 @@
         android:paddingStart="40dp"
         android:paddingEnd="40dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/songname"
+        android:textColor="@color/black"
+        android:layout_below="@id/viewpagerimageslider"
+        android:text=""
+        android:textSize="35sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/songartist"
+        android:textColor="@color/black"
+        android:layout_below="@id/songname"
+        android:textSize="20sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seeklayout"
+        android:layout_below="@id/songartist"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp">
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seek_bar"
+            android:thumbTint="#673AB7"
+            android:saveEnabled="false" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_pass"
+            android:textColor="#2E2E2E"
+            android:layout_below="@id/seek_bar"
+            android:layout_marginLeft="15dp"
+            android:text="00:00" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2E2E2E"
+            android:id="@+id/tv_due"
+            android:layout_below="@id/seek_bar"
+            android:text="00:00"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+        <ImageView
+            android:onClick="playpausebutton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/circle"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/play"
+            android:onClick="playpausebutton"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/pause"
+            android:onClick="playpausebutton"
+            android:src="@drawable/ic_baseline_pause_24"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/prev"
+            android:src="@drawable/ic_baseline_skip_previous_24"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@+id/pause" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/next"
+            android:src="@drawable/ic_baseline_skip_next_24"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/pause"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/heart"
+            android:src="@drawable/heart2"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true" />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/repeat"
+        android:src="@drawable/repeat2"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true" />
+
+
+
+
 </RelativeLayout>
