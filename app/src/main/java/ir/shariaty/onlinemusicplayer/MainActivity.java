@@ -42,20 +42,20 @@ public class MainActivity extends AppCompatActivity {
 
     // make new Flag for Play
     boolean play = true;
-    ImageView Play,Pause,Prev,Next;
+    ImageView Play, Pause, Prev, Next;
 
     Integer currentSongIndex = 0;
 
     SeekBar seekBar;
-    TextView Pass,Due;
+    TextView Pass, Due;
 
     Handler handler;
 
-    String out,out2;
+    String out, out2;
 
     Integer totalTime;
 
-    ImageView Heart,Repeat;
+    ImageView Heart, Repeat;
 
     boolean RepeatSong = false;
 
@@ -96,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds: snapshot.getChildren())
-                {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     // add all image url in list
                     imageurls.add(ds.child("imageurl").getValue(String.class));
 
@@ -109,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     // add song urls
                     songurls.add(ds.child("songurl").getValue(String.class));
                 }
-                for (int i=0;i<imageurls.size();i++)
-                {
+                for (int i = 0; i < imageurls.size(); i++) {
                     sliderItems.add(new SliderItems(imageurls.get(i)));
                 }
 
@@ -151,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // store value of index here
 
-                currentSongIndex = viewPager2.getCurrentItem()+1;
+                currentSongIndex = viewPager2.getCurrentItem();
 
             }
         });
@@ -159,11 +157,12 @@ public class MainActivity extends AppCompatActivity {
         Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                currentSongIndex = currentSongIndex + 1;
-
+                if (currentSongIndex < songurls.size() - 1) {
+                    currentSongIndex = currentSongIndex + 1;
+                } else {
+                    currentSongIndex = 0;
+                }
                 viewPager2.setCurrentItem(currentSongIndex);
-
                 init(currentSongIndex);
             }
         });
@@ -171,10 +170,12 @@ public class MainActivity extends AppCompatActivity {
         Prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentSongIndex = currentSongIndex - 1;
-
+                if (currentSongIndex > 0) {
+                    currentSongIndex = currentSongIndex - 1;
+                } else {
+                    currentSongIndex = songurls.size() - 1;
+                }
                 viewPager2.setCurrentItem(currentSongIndex);
-
                 init(currentSongIndex);
             }
         });
@@ -182,28 +183,25 @@ public class MainActivity extends AppCompatActivity {
         Heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    mref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            String like = snapshot.child(String.valueOf(currentSongIndex)).child("like").getValue(String.class);
-                            if (like.equals("0"))
-                            {
-                                Heart.setImageResource(R.drawable.heart);
-                                mref.child(String.valueOf(currentSongIndex)).child("like").setValue("1");
-                            }
-                            else
-                            {
-                                Heart.setImageResource(R.drawable.heart2);
-                                mref.child(String.valueOf(currentSongIndex)).child("like").setValue("0");
-                            }
+                        String like = snapshot.child(String.valueOf(currentSongIndex + 1)).child("like").getValue(String.class);
+                        if (like.equals("0")) {
+                            Heart.setImageResource(R.drawable.heart);
+                            mref.child(String.valueOf(currentSongIndex + 1)).child("like").setValue("1");
+                        } else {
+                            Heart.setImageResource(R.drawable.heart2);
+                            mref.child(String.valueOf(currentSongIndex + 1)).child("like").setValue("0");
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                    }
+                });
             }
         });
 
@@ -214,18 +212,15 @@ public class MainActivity extends AppCompatActivity {
                 mref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String repeat = snapshot.child(String.valueOf(currentSongIndex)).child("repeat").getValue(String.class);
-                        if (repeat.equals("0"))
-                        {
+                        String repeat = snapshot.child(String.valueOf(currentSongIndex + 1)).child("repeat").getValue(String.class);
+                        if (repeat.equals("0")) {
                             Repeat.setImageResource(R.drawable.repeat);
-                            mref.child(String.valueOf(currentSongIndex)).child("repeat").setValue("1");
+                            mref.child(String.valueOf(currentSongIndex + 1)).child("repeat").setValue("1");
                             RepeatSong = true;
                             RepeatSong();
-                        }
-                        else
-                        {
+                        } else {
                             Repeat.setImageResource(R.drawable.repeat2);
-                            mref.child(String.valueOf(currentSongIndex)).child("repeat").setValue("0");
+                            mref.child(String.valueOf(currentSongIndex + 1)).child("repeat").setValue("0");
                             RepeatSong = false;
                         }
                     }
@@ -264,7 +259,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (mediaPlayer.isPlaying())
                 mediaPlayer.reset();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         Pause.setVisibility(View.VISIBLE);
         Play.setVisibility(View.INVISIBLE);
@@ -276,24 +272,19 @@ public class MainActivity extends AppCompatActivity {
         mref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String like = snapshot.child(String.valueOf(currentSongIndex)).child("like").getValue(String.class);
-                String repeat = snapshot.child(String.valueOf(currentSongIndex)).child("repeat").getValue(String.class);
+                String like = snapshot.child(String.valueOf(currentSongIndex + 1)).child("like").getValue(String.class);
+                String repeat = snapshot.child(String.valueOf(currentSongIndex + 1)).child("repeat").getValue(String.class);
 
-                if (like.equals("0"))
-                {
+                if (like.equals("0")) {
                     Heart.setImageResource(R.drawable.heart2);
-                }
-                else {
+                } else {
                     Heart.setImageResource(R.drawable.heart);
                 }
 
-                if (repeat.equals("0"))
-                {
+                if (repeat.equals("0")) {
                     Repeat.setImageResource(R.drawable.repeat2);
                     RepeatSong = false;
-                }
-                else
-                {
+                } else {
                     Repeat.setImageResource(R.drawable.repeat);
                     RepeatSong = true;
 
@@ -320,8 +311,9 @@ public class MainActivity extends AppCompatActivity {
                     initializeSeekBar();
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {e.printStackTrace();}
 
     }
 
@@ -329,8 +321,7 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if (RepeatSong)
-                {
+                if (RepeatSong) {
                     mediaPlayer.seekTo(0);
                     mediaPlayer.start();
                 }
@@ -348,34 +339,30 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("DefaultLocale")
             @Override
             public void run() {
-                if (mediaPlayer != null)
-                {
+                if (mediaPlayer != null) {
                     int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
                     seekBar.setProgress(mCurrentPosition);
 
-                    out = String.format("%02d:%02d",seekBar.getProgress()/60,seekBar.getProgress()%60);
+                    out = String.format("%02d:%02d", seekBar.getProgress() / 60, seekBar.getProgress() % 60);
                     Pass.setText(out);
                 }
-                handler.postDelayed(this,1000);
+                handler.postDelayed(this, 1000);
             }
         });
 
         totalTime = mediaPlayer.getDuration() / 1000;
-        out2 = String.format("%02d:%02d",totalTime/60,totalTime%60);
+        out2 = String.format("%02d:%02d", totalTime / 60, totalTime % 60);
         Due.setText(out2);
 
     }
 
-    public void playpausebutton (View v) {
-        if (play)
-        {
+    public void playpausebutton(View v) {
+        if (play) {
             play = false;
             Pause.setVisibility(View.INVISIBLE);
             Play.setVisibility(View.VISIBLE);
             mediaPlayer.pause();
-        }
-        else
-        {
+        } else {
             play = true;
             Pause.setVisibility(View.VISIBLE);
             Play.setVisibility(View.INVISIBLE);
